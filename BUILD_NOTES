@@ -1,0 +1,62 @@
+BUILDING
+
+The code includes CMake files for building on Linux.  We haven't built
+or tested the code on any other platforms.
+
+Out-of-source builds are recommended with CMake:
+
+> mkdir wiberg-build  // Make wiberg-build a sibling directory to wiberg.
+> cd wiberg-build 
+> cmake ../wiberg
+> make
+
+If the build succeeds, wiberg-build will contain the libraries and executables,
+while the wiberg directory will remain unchanged.
+
+
+TEST PROGRAMS
+
+There are currently two simple test programs:
+
+  l1/factorization/factor_wiberg_test
+  l1/factorization/factor_simultaneous_test
+
+These execute ten iterations of L1 matrix factorization using Wiberg and
+successive linear programming respectively.  Outputs look like:
+
+$ ./factor_wiberg_test 
+Initial residual: 28.3822
+On iteration 0, accepting step from residual 28.3822 to 3.57098; mu goes to 100
+On iteration 1, accepting step from residual 3.57098 to 0.0200214; mu goes to 1000
+On iteration 2, accepting step from residual 0.0200214 to 9.4413e-07; mu goes to 10000
+On iteration 3, accepting step from residual 9.4413e-07 to 7.15641e-07; mu goes to 100000
+On iteration 4, rejecting step from residual 7.15641e-07 to 7.15641e-07; mu goes to 10000
+On iteration 5, rejecting step from residual 7.15641e-07 to 7.15641e-07; mu goes to 1000
+On iteration 6, rejecting step from residual 7.15641e-07 to 7.15641e-07; mu goes to 100
+On iteration 7, rejecting step from residual 7.15641e-07 to 7.15641e-07; mu goes to 10
+On iteration 8, rejecting step from residual 7.15641e-07 to 7.15641e-07; mu goes to 1
+On iteration 9, rejecting step from residual 7.15641e-07 to 7.15641e-07; mu goes to 0.1
+
+$ ./factor_simultaneous_test 
+Initial residual: 28.3822
+On iteration 0, accepting step from residual 28.3822 to 0.485115; mu goes to 100
+On iteration 1, accepting step from residual 0.485115 to 0.000291326; mu goes to 1000
+On iteration 2, accepting step from residual 0.000291326 to 3.15725e-06; mu goes to 10000
+On iteration 3, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 1000
+On iteration 4, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 100
+On iteration 5, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 10
+On iteration 6, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 1
+On iteration 7, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 0.1
+On iteration 8, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 0.01
+On iteration 9, rejecting step from residual 3.15725e-06 to 3.19512e-06; mu goes to 0.001
+
+
+DEPENDENCIES
+
+The code relies on Eigen for matrix operations and Coin LP for linear
+programming.  You may have to tweak wiberg/CMakeLists.txt to make
+CMake find the Eigen and Coin LP headers and libraries on your machine.
+
+Our code relies on sparse matrices in Eigen, and Eigen's support for
+sparse matrices is recent, so you may have to install and point to a
+recent version to compile successfully.

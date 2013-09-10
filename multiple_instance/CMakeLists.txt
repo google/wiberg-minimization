@@ -1,0 +1,1 @@
+add_library(WibergMultipleInstanceLearning wiberg_multiple_instance_learning.cc)
